@@ -10,13 +10,15 @@ def athlete_list(request):
     return render(request, 'Athletes/athletesDetails.html', {'athletes': page_obj.object_list, 'page_obj': page_obj})
 
 def athlete_list_country(request, country=None):
-    # If no country is passed, default to 'China'
-    selected_country = country if country else 'China'
+    # Get the search query from the GET parameter
+    search_query = request.GET.get('country')
 
-    # Filter athletes by the selected country
-    athletes = Athlete.objects.filter(country=selected_country).order_by('id')
+    # If no search query is provided, default to 'China'
+    selected_country = search_query if search_query else 'China'
+    selected_country_lower = selected_country.lower()
 
-    # Retrieve distinct countries for the dropdown
+    # Filter athletes by the selected country (case-insensitive)
+    athletes = Athlete.objects.filter(country__iexact=selected_country_lower).order_by('id')
     distinct_countries = Athlete.objects.values_list('country', flat=True).distinct()
 
     # Paginate the results (10 athletes per page)
@@ -24,12 +26,11 @@ def athlete_list_country(request, country=None):
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
 
-    # Render the template with the filtered athletes and distinct countries
     return render(request, 'Athletes/countryDetails.html', {
         'athletes': page_obj.object_list,
         'page_obj': page_obj,
         'distinct_countries': distinct_countries,
     })
-    
+        
 def home(request):
     return render(request, 'Athletes/index.html')

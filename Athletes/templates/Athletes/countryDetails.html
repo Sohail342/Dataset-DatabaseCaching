@@ -66,17 +66,12 @@
           {% endif %}
         </ul>
       </nav>
-
-      <div class="dropdown">
-        <a class="btn btn-secondary dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-            Country
-        </a>
-        <ul class="dropdown-menu">
-            {% for country in distinct_countries %}
-            <li><a class="dropdown-item" href="{% url 'athlete_list_country' country %}">{{ country }}</a></li>
-            {% endfor %}
-        </ul>
-    </div>
-    
+      {% for country in distinct_countries %}
+      <form action="{% url 'athlete_list_country' country %}" method="get">{% endfor %}
+        <div class="input-group mb-3">
+            <input type="search" class="form-control" id="country-search" name="country" placeholder="Search Country">
+            <button class="btn btn-primary" type="submit">Search</button>
+        </div>
+    </form>
 
 {% endblock content %}
