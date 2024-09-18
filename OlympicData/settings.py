@@ -120,3 +120,10 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 UNFOLD ={
     "SITE_HEADER" : "Olympic Athletes"
 }
+
+CACHES = {
+    "default": {
+        "BACKEND": "django.core.cache.backends.db.DatabaseCache",
+        "LOCATION": "my_cache_table",
+    }
+}
