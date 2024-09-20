@@ -54,13 +54,6 @@ In the Athlete Management System, caching Python objects plays a crucial role in
 6. **Access the website:**
     Open http://127.0.0.1:8000/ in your web browser.
 
-## Import olympic Athletes.csv data using admin panel
-
-**Access the admin panel:**
- Open http://127.0.0.1:8000/admin/ in your web browser.
-
- click on Athletes Model from admin panel then click on Import and select the provided .csv file
-
 
 ## Contact
 
